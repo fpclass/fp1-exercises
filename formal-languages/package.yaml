@@ -1,0 +1,35 @@
+name: formal-languages
+version: 2022.0.0.0
+github: "fpclass/fp1-exercises"
+author: "Michael B. Gale"
+maintainer: "michael@fpclass.online"
+copyright: "Copyright 2022 Michael B. Gale"
+license: OtherLicense
+
+extra-source-files:
+  - README.md
+
+description: "Please see the README on GitHub at <https://github.com/fpclass/fp1-exercises#readme>"
+
+dependencies:
+  - base >= 4.7 && < 5
+  - containers
+  - mtl
+
+library:
+  source-dirs: src
+
+tests:
+  formal-languages-test:
+    main: Spec.hs
+    source-dirs: test
+    ghc-options:
+      - -threaded
+      - -rtsopts
+    dependencies:
+      - formal-languages
+      - tasty
+      - tasty-ant-xml
+      - tasty-hunit
+      - tasty-hedgehog
+      - hedgehog

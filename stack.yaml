@@ -1,0 +1,9 @@
+resolver: lts-18.20
+
+packages:
+  - ./formal-languages
+
+extra-deps:
+  - tasty-quickcheck-laws-0.0.3@sha256:a33a458e2a98feee96be41969382a63c9570fdbca262f07e56d6b4d0228b36cd,2105
+  - git: https://github.com/mbg/tasty-hedgehog
+    commit: ceadcd78cf96ef2a0fb63d353aaa43f2e51b40a8

@@ -1,0 +1,55 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.34.5.
+--
+-- see: https://github.com/sol/hpack
+
+name:           formal-languages
+version:        2022.0.0.0
+description:    Please see the README on GitHub at <https://github.com/fpclass/fp1-exercises#readme>
+homepage:       https://github.com/fpclass/fp1-exercises#readme
+bug-reports:    https://github.com/fpclass/fp1-exercises/issues
+author:         Michael B. Gale
+maintainer:     michael@fpclass.online
+copyright:      Copyright 2022 Michael B. Gale
+license:        OtherLicense
+build-type:     Simple
+extra-source-files:
+    README.md
+
+source-repository head
+  type: git
+  location: https://github.com/fpclass/fp1-exercises
+
+library
+  exposed-modules:
+      Lab
+  other-modules:
+      Paths_formal_languages
+  hs-source-dirs:
+      src
+  build-depends:
+      base >=4.7 && <5
+    , containers
+    , mtl
+  default-language: Haskell2010
+
+test-suite formal-languages-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Paths_formal_languages
+  hs-source-dirs:
+      test
+  ghc-options: -threaded -rtsopts
+  build-depends:
+      base >=4.7 && <5
+    , containers
+    , formal-languages
+    , hedgehog
+    , mtl
+    , tasty
+    , tasty-ant-xml
+    , tasty-hedgehog
+    , tasty-hunit
+  default-language: Haskell2010

@@ -1,0 +1,53 @@
+name: build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        resolver:
+          - stack
+        os:
+          - ubuntu-latest
+          - windows-latest
+          - macos-latest
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install Haskell
+        id: "install-haskell"
+        uses: haskell/actions/setup@v1
+        with:
+          ghc-version: "8.10.7"
+          enable-stack: true
+          stack-version: "latest"
+
+      - name: Cache .stack
+        id: cache-stack
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.install-haskell.outputs.stack-root }}
+          key: ${{ runner.os }}-${{ matrix.resolver }}-${{ hashFiles(format('{0}.yaml', matrix.resolver)) }}
+          restore-keys: |
+            ${{ runner.os }}-${{ matrix.resolver }}-
+            ${{ runner.os }}-
+
+      - name: Install dependencies
+        run: |
+          stack --system-ghc --stack-yaml=${{ matrix.resolver }}.yaml --no-terminal build --only-dependencies --fast --test --bench --haddock
+
+      - name: Build
+        id: build
+        run: |
+          stack --system-ghc --stack-yaml=${{ matrix.resolver }}.yaml --no-terminal build --fast --test --haddock --bench --no-run-tests --no-run-benchmarks
+
